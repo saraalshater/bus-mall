@@ -24,7 +24,7 @@ let firstImgIndex;
 let secondImgIndex;
 let thirdImgIndex;
 
-Product.productArray = [];
+
 
 let votes = [];
 let shown = [];
@@ -42,7 +42,7 @@ function Product(name, source) {
 
 
 }
-
+Product.productArray = [];
 
 new Product('bag', 'img/bag.jpg');
 new Product('banana', 'img/banana.jpg');
@@ -65,7 +65,27 @@ new Product('usb', 'img/usb.gif');
 new Product('water-can', 'img/water-can.jpg');
 new Product('wine-glass', 'img/wine-glass.jpg');
 
+function updateStorage () {
 
+  let allproducts=JSON.stringify(Product.productArray);
+
+  localStorage.setItem('votes',allproducts);
+  
+}
+
+
+function getDataFromStorage() {
+  let data=localStorage.getItem('votes');
+
+  let productData=JSON.parse(data);
+
+
+  if(productData!== null ){
+    Product.productArray=productData;
+    chart();
+  }
+  
+}
 
 
 function getRandomImg() {
@@ -128,17 +148,17 @@ function getNewPicturesWhenClick(event) {
 
       renderThreeImg();
       Product.productArray[firstImgIndex].vote++;
-
+      
 
     } else if (event.target.id === 'secondImg') {
       renderThreeImg();
       Product.productArray[secondImgIndex].vote++;
-
+     
 
     } else if (event.target.id === 'thirdImg') {
       renderThreeImg();
       Product.productArray[thirdImgIndex].vote++;
-
+      
 
     }
 
@@ -155,12 +175,9 @@ function getNewPicturesWhenClick(event) {
 
     // buttonElement.removeEventListener('click',getAllResult);
     //     console.log(getAllResult());
-    for (let i = 0; i < Product.productArray.length; i++) {
-      votes.push(Product.productArray[i].vote);
-      shown.push(Product.productArray[i].timesImgDisplayed);
-
-    }
-
+    
+    
+    updateStorage();
     chart();
 
   }
@@ -195,6 +212,16 @@ buttonElement.removeEventListener('click', getAllResult);
 
 
 function chart() {
+
+  for (let i = 0; i < Product.productArray.length; i++) {
+    votes.push(Product.productArray[i].vote);
+    shown.push(Product.productArray[i].timesImgDisplayed);
+
+    
+  }
+
+
+
   let ctx = document.getElementById('myChart');
   let myChart = new Chart(ctx, {
     type: 'bar',
@@ -253,9 +280,12 @@ function chart() {
     }
   });
 
+
+
+
 }
 
-
+getDataFromStorage();
 
 
 // renderThreeImg();
