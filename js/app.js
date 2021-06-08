@@ -38,8 +38,7 @@ function Product(name, source) {
 
   Product.productArray.push(this);
   productnames.push(this.name);
-  // votes.push(this.vote);
-  // shown.push(this.timesImgDisplayed);
+
 
 
 }
@@ -82,10 +81,12 @@ function renderThreeImg() {
   thirdImgIndex = getRandomImg();
 
 
+
   while (firstImgIndex === secondImgIndex || secondImgIndex === thirdImgIndex || firstImgIndex === thirdImgIndex) {
     secondImgIndex = getRandomImg();
     thirdImgIndex = getRandomImg();
   }
+
 
 
 
@@ -100,6 +101,7 @@ function renderThreeImg() {
   Product.productArray[thirdImgIndex].timesImgDisplayed++;
 
   console.log(Product.productArray[secondImgIndex].timesImgDisplayed++);
+
 
 
 }
@@ -135,7 +137,26 @@ function getNewPicturesWhenClick(event) {
       renderThreeImg();
       Product.productArray[thirdImgIndex].vote++;
 
+
     }
+
+
+  } else {
+    // let buttonElement = document.getElementById('button');
+
+    // buttonElement.hidden = false;
+    buttonElement.addEventListener('click', getAllResult);
+
+    allimgElement.removeEventListener('click', getNewPicturesWhenClick);
+
+    // getAllResult(event);
+
+    // buttonElement.removeEventListener('click',getAllResult);
+    //     console.log(getAllResult());
+    // 
+
+  }
+
 
 
   } else {
@@ -160,10 +181,26 @@ function getNewPicturesWhenClick(event) {
 
   }
 
+
+
+
+
+function getAllResult() {
+
+
+  for (let i = 0; i < Product.productArray.length; i++) {
+    let listResult = document.getElementById('list-result');
+    let liElement = document.createElement('li');
+    listResult.appendChild(liElement);
+
+    liElement.textContent = `${Product.productArray[i].name} had ${Product.productArray[i].vote} votes, and was seen ${Product.productArray[i].timesImgDisplayed} times`;
+  }
+//   buttonElement.hidden =true;
+buttonElement.removeEventListener('click', getAllResult);
 }
 
 
-
+// buttonElement.hidden = true;
 
 
 function getAllResult() {
@@ -252,6 +289,7 @@ function chart() {
   });
     
 }
+
 
 
 
