@@ -38,8 +38,7 @@ function Product(name, source) {
 
   Product.productArray.push(this);
   productnames.push(this.name);
-  votes.push(this.vote);
-  shown.push(this.timesImgDisplayed);
+
 
 
 }
@@ -82,10 +81,12 @@ function renderThreeImg() {
   thirdImgIndex = getRandomImg();
 
 
+
   while (firstImgIndex === secondImgIndex || secondImgIndex === thirdImgIndex || firstImgIndex === thirdImgIndex) {
     secondImgIndex = getRandomImg();
     thirdImgIndex = getRandomImg();
   }
+
 
 
 
@@ -100,6 +101,7 @@ function renderThreeImg() {
   Product.productArray[thirdImgIndex].timesImgDisplayed++;
 
   console.log(Product.productArray[secondImgIndex].timesImgDisplayed++);
+
 
 
 }
@@ -135,6 +137,7 @@ function getNewPicturesWhenClick(event) {
       renderThreeImg();
       Product.productArray[thirdImgIndex].vote++;
 
+
     }
 
 
@@ -154,7 +157,29 @@ function getNewPicturesWhenClick(event) {
 
   }
 
-}
+
+
+  } else {
+    // let buttonElement = document.getElementById('button');
+
+    // buttonElement.hidden = false;
+    buttonElement.addEventListener('click', getAllResult);
+
+    allimgElement.removeEventListener('click', getNewPicturesWhenClick);
+
+    // getAllResult(event);
+
+    // buttonElement.removeEventListener('click',getAllResult);
+    //     console.log(getAllResult());
+    for (let i = 0; i < Product.productArray.length; i++) {
+      votes.push(Product.productArray[i].vote);
+      shown.push(Product.productArray[i].timesImgDisplayed);
+
+    }
+
+    chart();
+
+  }
 
 
 
@@ -177,6 +202,24 @@ buttonElement.removeEventListener('click', getAllResult);
 
 // buttonElement.hidden = true;
 
+
+function getAllResult() {
+
+
+  for (let i = 0; i < Product.productArray.length; i++) {
+    let listResult = document.getElementById('list-result');
+    let liElement = document.createElement('li');
+    listResult.appendChild(liElement);
+
+    liElement.textContent = `${Product.productArray[i].name} had ${Product.productArray[i].vote} votes, and was seen ${Product.productArray[i].timesImgDisplayed} times`;
+  }
+  //   buttonElement.hidden =true;
+  buttonElement.removeEventListener('click', getAllResult);
+}
+
+
+// buttonElement.hidden = true;
+
 // for (let i = 0; i < Product.length; i++) {
 //   votes.push(Product.productArray[i].vote);
 //   shown.push(Product.productArray[i].shown);
@@ -186,38 +229,67 @@ buttonElement.removeEventListener('click', getAllResult);
 
 
 
-// function chart() {
-//     let ctx = document.getElementById('myChart')
-//     let myChart = new Chart(ctx, {
-//         type: 'bar',
-//         data: {
-//             labels: productnames,
-//             datasets: [{
-//                 label: '# of Votes',
-//                 data: votes,
-//                 backgroundColor: [
-//                     'rgba(255, 99, 132, 0.2)',
-//                     'rgba(54, 162, 235, 0.2)',
-//                     'rgba(255, 206, 86, 0.2)',
-//                     'rgba(75, 192, 192, 0.2)',
-//                     'rgba(153, 102, 255, 0.2)',
-//                     'rgba(255, 159, 64, 0.2)'
-//                 ],
-//                 borderColor: [
-//                     'rgba(255, 99, 132, 1)',
-//                     'rgba(54, 162, 235, 1)',
-//                     'rgba(255, 206, 86, 1)',
-//                     'rgba(75, 192, 192, 1)',
-//                     'rgba(153, 102, 255, 1)',
-//                     'rgba(255, 159, 64, 1)'
-//                 ],
-//                 borderWidth: 1
-//             }
-// }
+function chart() {
+  let ctx = document.getElementById('myChart');
+  let myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels:productnames,
+          datasets: [{
+              label: '# of Votes',
+              data:votes,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          },
+          {
+            label: '# of Shown',
+            data:shown,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }
+        ]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+    
+}
 
-//     }
-
-// }
 
 
 
