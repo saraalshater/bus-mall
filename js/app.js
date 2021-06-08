@@ -82,7 +82,7 @@ function renderThreeImg() {
 
   let picturesArray=[firstImgIndex,secondImgIndex,thirdImgIndex];
 
-  while (firstImgIndex === secondImgIndex || secondImgIndex === thirdImgIndex || firstImgIndex === thirdImgIndex || picturesArray.include(firstImgIndex) || picturesArray.include(secondImgIndex) || picturesArray.include(thirdImgIndex)) {
+  while (firstImgIndex === secondImgIndex || secondImgIndex === thirdImgIndex || firstImgIndex === thirdImgIndex || picturesArray.includes(firstImgIndex) || picturesArray.includes(secondImgIndex) || picturesArray.includes(thirdImgIndex)) {
     secondImgIndex = getRandomImg();
     thirdImgIndex = getRandomImg();
     firstImgIndex = getRandomImg();
@@ -142,25 +142,7 @@ function getNewPicturesWhenClick(event) {
 
     }
 
-
-  } else {
-    // let buttonElement = document.getElementById('button');
-
-    // buttonElement.hidden = false;
-    buttonElement.addEventListener('click', getAllResult);
-
-    allimgElement.removeEventListener('click', getNewPicturesWhenClick);
-
-    // getAllResult(event);
-
-    // buttonElement.removeEventListener('click',getAllResult);
-    //     console.log(getAllResult());
-    // 
-
-  }
-
-
-
+  
   } else {
     // let buttonElement = document.getElementById('button');
 
@@ -185,7 +167,7 @@ function getNewPicturesWhenClick(event) {
 
 
 
-
+}
 
 function getAllResult() {
 
@@ -205,28 +187,9 @@ buttonElement.removeEventListener('click', getAllResult);
 // buttonElement.hidden = true;
 
 
-function getAllResult() {
 
 
-  for (let i = 0; i < Product.productArray.length; i++) {
-    let listResult = document.getElementById('list-result');
-    let liElement = document.createElement('li');
-    listResult.appendChild(liElement);
 
-    liElement.textContent = `${Product.productArray[i].name} had ${Product.productArray[i].vote} votes, and was seen ${Product.productArray[i].timesImgDisplayed} times`;
-  }
-  //   buttonElement.hidden =true;
-  buttonElement.removeEventListener('click', getAllResult);
-}
-
-
-// buttonElement.hidden = true;
-
-// for (let i = 0; i < Product.length; i++) {
-//   votes.push(Product.productArray[i].vote);
-//   shown.push(Product.productArray[i].shown);
-
-// }
 
 
 
